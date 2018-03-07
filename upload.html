@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Uploader</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.css">
+</head>
+<body>
+<form action="upload" enctype="multipart/form-data" method="POST">
+    <div class="dropzone" id="myDropzone"></div>
+    <button type="submit" id="submit-all"> upload </button>
+</form>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.js"></script>
+<script>
+
+Dropzone.options.myDropzone= {
+    url: 'upload',
+    autoProcessQueue: false,
+    uploadMultiple: true,
+    parallelUploads: 5,
+    maxFiles: 5,
+    maxFilesize: 1,
+    acceptedFiles: 'image/*',
+    addRemoveLinks: true,
+    init: function() {
+        dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
+        // for Dropzone to process the queue (instead of default form behavior):
+        document.getElementById("submit-all").addEventListener("click", function(e) {
+            // Make sure that the form isn't actually being sent.
+            e.preventDefault();
+            e.stopPropagation();
+            dzClosure.processQueue();
+        });
+    }
+}
+</script>
+</body>
+</html>
